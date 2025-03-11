@@ -4,7 +4,7 @@ import { Crown, Zap, Star, Users, Check, Shield, Award, Clock } from 'lucide-rea
 const plans = [
   {
     name: "Exclusive Launch",
-    price: '$7.99',
+    price: '$9.99',
     totalSpots: 25,
     spotsLeft: 25,
     icon: Crown,
@@ -20,7 +20,7 @@ const plans = [
   },
   {
     name: 'Early Bird',
-    price: '$14.99',
+    price: '$19.99',
     totalSpots: 50,
     spotsLeft: 50,
     icon: Zap,
@@ -35,7 +35,7 @@ const plans = [
   },
   {
     name: 'Build Club',
-    price: '$19.99',
+    price: '$27.99',
     totalSpots: 100,
     spotsLeft: 100,
     icon: Star,
@@ -50,7 +50,7 @@ const plans = [
   },
   {
     name: 'Standard',
-    price: '$29.99',
+    price: '$35.00',
     totalSpots: null,
     spotsLeft: null,
     icon: Users,
@@ -178,7 +178,7 @@ export default function Pricing() {
                         : 'bg-dark-700/80 text-gray-300 hover:bg-dark-700'
                     }`}
                   >
-                    {isFirst ? 'Reserve Now' : 'Join Waitlist'}
+                    {isFirst ? 'Join Waitlist to Reserve' : 'Locked'}
                   </motion.button>
                   
                   {isFirst && (

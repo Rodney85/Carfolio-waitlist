@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowRight, CheckCircle2, Loader2 } from 'lucide-react';
 import { useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
@@ -49,22 +49,53 @@ const WaitlistForm = () => {
     }
   };
   
+  // Reset form when status is success after 3 seconds
+  useEffect(() => {
+    if (status === 'success') {
+      const timer = setTimeout(() => {
+        setStatus('idle');
+        setMessage('');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [status]);
+
   return (
-    <div className="max-w-md w-full">
+    <div className="w-full">
       <form onSubmit={handleSubmit} className="relative">
-        <div className="flex items-center">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-0">
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
-            className="w-full px-4 py-3 rounded-l-lg bg-dark-800 border border-dark-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition duration-200"
+            className={`w-full px-4 py-3 rounded-lg sm:rounded-r-none bg-dark-800 border ${
+              status === 'error' 
+                ? 'border-red-500 focus:ring-red-500' 
+                : status === 'success'
+                ? 'border-green-500 focus:ring-green-500'
+                : 'border-dark-700 focus:ring-primary-500'
+            } focus:outline-none focus:ring-2 focus:border-transparent transition duration-200`}
             disabled={status === 'loading' || status === 'success'}
+            aria-label="Email address"
           />
           <button
             type="submit"
             disabled={status === 'loading' || status === 'success'}
-            className="bg-primary-500 hover:bg-primary-600 text-white px-4 py-3 rounded-r-lg transition duration-200 flex items-center justify-center disabled:opacity-70"
+            className={`${
+              status === 'success' 
+                ? 'bg-green-600 hover:bg-green-700' 
+                : status === 'error'
+                ? 'bg-red-600 hover:bg-red-700'
+                : 'bg-primary-500 hover:bg-primary-600'
+            } text-white px-4 py-3 rounded-lg sm:rounded-l-none transition duration-200 flex items-center justify-center disabled:opacity-70 min-w-[50px] sm:min-w-[unset] h-12 sm:h-auto`}
+            aria-label={
+              status === 'loading' 
+                ? 'Loading' 
+                : status === 'success'
+                ? 'Success'
+                : 'Join Waitlist'
+            }
           >
             {status === 'loading' ? (
               <Loader2 className="w-5 h-5 animate-spin" />
@@ -77,7 +108,13 @@ const WaitlistForm = () => {
         </div>
         
         {status !== 'idle' && (
-          <p className={`mt-2 text-sm ${status === 'error' ? 'text-red-500' : status === 'success' ? 'text-green-500' : 'text-gray-400'}`}>
+          <p className={`mt-2 text-sm ${
+            status === 'error' 
+              ? 'text-red-500' 
+              : status === 'success' 
+              ? 'text-green-500' 
+              : 'text-gray-400'
+          }`}>
             {message}
           </p>
         )}
