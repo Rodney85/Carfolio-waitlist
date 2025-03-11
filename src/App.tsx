@@ -7,7 +7,6 @@ import HowItWorks from './components/HowItWorks.tsx';
 import Pricing from './components/Pricing';
 import Footer from './components/Footer';
 import Admin from './pages/Admin';
-import Test from './pages/Test';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -32,7 +31,6 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/test" element={<Test />} />
           <Route 
             path="/admin" 
             element={
