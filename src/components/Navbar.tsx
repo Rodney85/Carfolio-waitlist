@@ -1,6 +1,9 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { AnimatePresence } from 'framer-motion';
 
 const navItems = [
   { name: 'Features', href: '#features' },
@@ -8,159 +11,113 @@ const navItems = [
   { name: 'Pricing', href: '#pricing' },
 ];
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+const Navbar: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  // Handle scroll effect
+  // Close menu when user resizes window to desktop size
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Toggle mobile menu
-  const toggleMenu = () => {
-    setIsOpen(prevState => !prevState);
-  };
-
-  // Close mobile menu when clicking outside
-  useEffect(() => {
-    if (!isOpen) return;
-    
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        mobileMenuRef.current && 
-        !mobileMenuRef.current.contains(event.target as Node) &&
-        menuButtonRef.current &&
-        !menuButtonRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsMenuOpen(false);
       }
     };
-    
-    // Close menu when user clicks a link or scrolls
-    const handleScroll = () => {
-      setIsOpen(false);
-    };
 
-    document.addEventListener('click', handleClickOutside);
+    window.addEventListener('resize', handleResize);
+    
+    // Check scroll position to add/remove background
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    
     window.addEventListener('scroll', handleScroll);
     
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isOpen]);
+  }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Close menu when clicking a nav link
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
-    <motion.nav 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled || isOpen
-          ? 'bg-dark-900/95 backdrop-blur-md shadow-lg'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16 md:h-20">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMenuOpen ? 'bg-dark-800/95 backdrop-blur-sm' : 'bg-transparent'}`}>
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <a
-            href="#"
-            className="font-bold text-white relative group"
-          >
-            <span className="text-2xl md:text-3xl tracking-tighter">
-              <span className="text-primary-500 font-extrabold">CAR</span>
-              <span className="font-light">FOLIO</span>
-              <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-primary-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out origin-left"></span>
-            </span>
-          </a>
-
+          <Link to="/" className="text-2xl font-bold text-white">
+            <span className="text-primary-500">Car</span>folio
+          </Link>
+          
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navItems.map((item) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                whileHover={{ scale: 1.05 }}
-                className="text-gray-300 hover:text-primary-500 transition-colors relative py-2 tracking-wide"
-              >
-                {item.name}
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary-500 transform scale-x-0 hover:scale-x-100 transition-transform" />
-              </motion.a>
-            ))}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                window.scrollTo({ top: document.getElementById('waitlist-form')?.offsetTop || 0, behavior: 'smooth' });
-              }}
-              className="bg-primary-500 hover:bg-primary-600 text-white font-medium px-5 py-2 rounded-md tracking-wide transition-colors"
+          <nav className="hidden md:flex items-center space-x-8">
+            <a href="#features" className="text-gray-300 hover:text-primary-500 transition-colors">Features</a>
+            <a href="#how-it-works" className="text-gray-300 hover:text-primary-500 transition-colors">How It Works</a>
+            <a href="#pricing" className="text-gray-300 hover:text-primary-500 transition-colors">Pricing</a>
+            <a 
+              href="#join-waitlist" 
+              className="px-5 py-2 bg-primary-500 text-dark-900 font-medium rounded-full hover:bg-primary-600 transition-colors"
             >
               Join Waitlist
-            </motion.button>
-          </div>
-
+            </a>
+          </nav>
+          
           {/* Mobile Menu Button */}
-          <div className="lg:hidden">
-            <button
-              ref={menuButtonRef}
-              onClick={toggleMenu}
-              className="menu-button text-white hover:text-primary-500 transition-colors p-2 bg-dark-800/80 rounded-md active:bg-dark-700"
-              aria-expanded={isOpen}
-              aria-label="Toggle menu"
-              type="button"
+          <button 
+            className="md:hidden p-2 rounded-lg bg-dark-700 text-gray-400 hover:bg-dark-600 hover:text-white focus:outline-none"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              className="h-6 w-6" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+              {isMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
         </div>
-
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              ref={mobileMenuRef}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="lg:hidden overflow-hidden mobile-menu bg-dark-800/95 backdrop-blur-lg rounded-lg mt-2 border border-dark-700 shadow-xl"
-            >
-              <div className="p-4 space-y-3">
-                {navItems.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="block text-gray-300 hover:text-primary-500 transition-colors px-4 py-3 rounded-lg hover:bg-dark-700 font-medium text-center"
-                  >
-                    {item.name}
-                  </a>
-                ))}
-                <div className="pt-2">
-                  <button
-                    onClick={() => {
-                      setIsOpen(false);
-                      window.scrollTo({ top: document.getElementById('waitlist-form')?.offsetTop || 0, behavior: 'smooth' });
-                    }}
-                    className="w-full bg-primary-500 hover:bg-primary-600 text-white px-4 py-3 rounded-lg font-medium transition-colors flex items-center justify-center"
-                  >
-                    Join Waitlist
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
-    </motion.nav>
+      
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <motion.div 
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          className="md:hidden border-t border-dark-700 bg-dark-800"
+        >
+          <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+            <a href="#features" onClick={closeMenu} className="text-gray-300 hover:text-primary-500 py-2 transition-colors">Features</a>
+            <a href="#how-it-works" onClick={closeMenu} className="text-gray-300 hover:text-primary-500 py-2 transition-colors">How It Works</a>
+            <a href="#pricing" onClick={closeMenu} className="text-gray-300 hover:text-primary-500 py-2 transition-colors">Pricing</a>
+            <a 
+              href="#join-waitlist" 
+              onClick={closeMenu}
+              className="px-5 py-2 bg-primary-500 text-dark-900 font-medium rounded-full hover:bg-primary-600 transition-colors text-center"
+            >
+              Join Waitlist
+            </a>
+          </div>
+        </motion.div>
+      )}
+    </header>
   );
-}
+};
+
+export default Navbar;
