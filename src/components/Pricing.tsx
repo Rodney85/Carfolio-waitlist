@@ -5,8 +5,8 @@ const plans = [
   {
     name: "Exclusive Launch",
     price: '$9.99',
-    totalSpots: 25,
-    spotsLeft: 25,
+    totalSpots: 30,
+    spotsLeft: 30,
     icon: Crown,
     badge: "Founding Member",
     highlight: true,
@@ -21,8 +21,8 @@ const plans = [
   {
     name: 'Early Bird',
     price: '$19.99',
-    totalSpots: 50,
-    spotsLeft: 50,
+    totalSpots: 40,
+    spotsLeft: 40,
     icon: Zap,
     badge: 'Early Bird',
     features: [
@@ -36,8 +36,8 @@ const plans = [
   {
     name: 'Build Club',
     price: '$27.99',
-    totalSpots: 100,
-    spotsLeft: 100,
+    totalSpots: 30,
+    spotsLeft: 30,
     icon: Star,
     badge: 'Builder',
     features: [
@@ -49,16 +49,17 @@ const plans = [
     ]
   },
   {
-    name: 'Standard',
+    name: 'Premium',
     price: '$35.00',
     totalSpots: null,
     spotsLeft: null,
     icon: Users,
     features: [
-      'Up to 3 vehicle profiles',
-      'Basic stats tracking',
-      'Standard support',
-      'Standard access to new features'
+      'Unlimited vehicle profiles',
+      'Advanced analytics & reporting',
+      'Priority support',
+      'Early access to new features',
+      'Custom export options'
     ]
   }
 ];
@@ -180,6 +181,8 @@ export default function Pricing() {
                   >
                     {isFirst ? 'Join Waitlist to Reserve' : 'Locked'}
                   </motion.button>
+                  
+                  {!isFirst && <div className="h-[20px]"></div>}
                   
                   {isFirst && (
                     <p className="text-xs text-center mt-2 text-primary-500">

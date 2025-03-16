@@ -25,23 +25,29 @@ const Home: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  React.useEffect(() => {
+    document.title = 'Carfolio';
+  }, []);
+
   return (
-    <div className="min-h-screen bg-dark-900 text-gray-100">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route 
-            path="/admin" 
-            element={
-              <ProtectedRoute>
-                <Admin />
-              </ProtectedRoute>
-            } 
-          />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <>
+      <div className="min-h-screen bg-dark-900 text-gray-100">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              } 
+            />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </>
   );
 };
 
