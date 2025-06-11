@@ -135,7 +135,7 @@ export class GoogleSheetsService {
       const rows = response.values || [];
       // Skip header row if it exists
       const emails = rows.slice(1).map((row: any[]) => row[0] || '');
-      return emails.filter(email => email !== '');
+      return emails.filter((email: string) => email !== '');
     } catch (error) {
       console.error('Error retrieving emails from Google Sheet:', error);
       throw error;
