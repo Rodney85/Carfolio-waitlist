@@ -10,6 +10,10 @@ export const GOOGLE_CONFIG = {
   ],
   // You'll need to create a spreadsheet and put its ID here
   SPREADSHEET_ID: '',  // Add your Google Sheet ID here
+  
+  // URLs for authentication
+  PRODUCTION_URL: 'https://carfolio-waitlist.netlify.app',
+  DEV_URLS: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'],
 };
 
 /**
@@ -21,4 +25,17 @@ export const getGoogleAuthParams = () => {
     scope: GOOGLE_CONFIG.SCOPES.join(' '),
     response_type: 'token',
   };
+};
+
+/**
+ * Get the appropriate redirect URI based on current environment
+ */
+export const getRedirectUri = (): string => {
+  // If we're on the production domain, use that
+  if (window.location.origin === GOOGLE_CONFIG.PRODUCTION_URL) {
+    return GOOGLE_CONFIG.PRODUCTION_URL;
+  }
+  
+  // Otherwise use the current origin (for local development)
+  return window.location.origin;
 };

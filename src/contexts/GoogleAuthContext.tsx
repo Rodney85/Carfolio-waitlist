@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import googleSheetsService from '../utils/googleSheetsService';
-import { GOOGLE_CONFIG } from '../config/googleConfig';
+import { GOOGLE_CONFIG, getRedirectUri } from '../config/googleConfig';
 
 interface GoogleAuthContextType {
   isAuthenticated: boolean;
@@ -52,16 +52,31 @@ export const GoogleAuthProvider: React.FC<GoogleAuthProviderProps> = ({ children
 
   // Login function to redirect to Google OAuth
   const login = () => {
+    // Use our helper to get the correct redirect URI based on environment
+    const redirectUri = getRedirectUri();
+    
+    // Log the exact URI for debugging purposes
+    console.log('Using redirect URI:', redirectUri);
+    console.log('Current location:', window.location.href);
+    console.log('Is production?', window.location.origin === GOOGLE_CONFIG.PRODUCTION_URL);
+    
+    // Create auth parameters
     const params = new URLSearchParams({
       client_id: GOOGLE_CONFIG.CLIENT_ID,
-      redirect_uri: window.location.origin,
+      // Use the exact redirect_uri with no modification
+      redirect_uri: redirectUri,
       scope: GOOGLE_CONFIG.SCOPES.join(' '),
       response_type: 'token',
+      // These settings ensure we always get a fresh token
       prompt: 'consent',
       access_type: 'online',
     });
     
+    // Log the full auth URL to check what's being sent
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+    console.log('Full auth URL:', authUrl);
+    
+    // Redirect to Google OAuth
     window.location.href = authUrl;
   };
 
