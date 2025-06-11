@@ -37,22 +37,45 @@ export class GoogleSheetsService {
     if (!this.accessToken) {
       throw new Error('Google Sheets service not initialized');
     }
+    
+    console.log('Making API request to:', url);
+    console.log('Request options:', JSON.stringify({
+      method: options.method,
+      hasBody: !!options.body,
+      hasToken: !!this.accessToken
+    }));
 
-    const response = await fetch(url, {
-      ...options,
-      headers: {
-        ...options.headers,
-        'Authorization': `Bearer ${this.accessToken}`,
-        'Content-Type': 'application/json'
+    try {
+      const response = await fetch(url, {
+        ...options,
+        headers: {
+          ...options.headers,
+          'Authorization': `Bearer ${this.accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      console.log('API response status:', response.status);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('API error response:', errorText);
+        try {
+          const errorJson = JSON.parse(errorText);
+          console.error('Error details:', errorJson.error?.message || errorJson);
+        } catch (e) {
+          // Not JSON, continue with text error
+        }
+        throw new Error(`API error: ${response.status} - ${errorText}`);
       }
-    });
-
-    if (!response.ok) {
-      const error = await response.text();
-      throw new Error(`API error: ${response.status} - ${error}`);
+      
+      const responseData = await response.json();
+      console.log('API success response:', responseData);
+      return responseData;
+    } catch (error) {
+      console.error('Fetch error in fetchWithAuth:', error);
+      throw error;
     }
-
-    return response.json();
   }
 
   /**
@@ -61,18 +84,42 @@ export class GoogleSheetsService {
   public async addEmailToSheet(spreadsheetId: string, email: string): Promise<any> {
     const date = new Date().toISOString();
     
+    console.log('Starting addEmailToSheet with:', { spreadsheetId, email });
+    
+    if (!spreadsheetId || spreadsheetId.trim() === '') {
+      console.error('Invalid spreadsheet ID - empty or missing');
+      throw new Error('Invalid spreadsheet ID - please configure in admin panel');
+    }
+    
     try {
       // Use append API to add to the end of the sheet
       const appendUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A:B:append?valueInputOption=USER_ENTERED`;
+      console.log('Using append URL:', appendUrl);
       
-      return await this.fetchWithAuth(appendUrl, {
+      const requestBody = {
+        values: [[email, date]]
+      };
+      console.log('Request body:', requestBody);
+      
+      const result = await this.fetchWithAuth(appendUrl, {
         method: 'POST',
-        body: JSON.stringify({
-          values: [[email, date]]
-        })
+        body: JSON.stringify(requestBody)
       });
+      
+      console.log('Successfully added email to sheet, result:', result);
+      return result;
     } catch (error) {
       console.error('Error adding email to Google Sheet:', error);
+      // Check for common issues
+      if (error instanceof Error) {
+        if (error.message.includes('404')) {
+          console.error('Spreadsheet not found - check your spreadsheet ID');
+        } else if (error.message.includes('403')) {
+          console.error('Permission denied - make sure the sheet is shared with your account');
+        } else if (error.message.includes('invalid_grant') || error.message.includes('token')) {
+          console.error('Authentication issue - try signing out and signing in again');
+        }
+      }
       throw error;
     }
   }
