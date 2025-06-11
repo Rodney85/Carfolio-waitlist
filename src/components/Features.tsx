@@ -1,124 +1,117 @@
 import { motion } from 'framer-motion';
-import { ShieldCheck, Zap, Share2, DollarSign, Car, Users } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 const features = [
   {
-    icon: Car,
-    title: "Digital Car Profiles",
-    description: "Showcase every detail of your builds with dedicated profiles for each vehicle, including specs, mods, and history.",
-    color: "from-rose-500 to-primary-500"
+    emoji: "📱",
+    title: "Digital Car Portfolios",
+    description: "Create dedicated profiles for each vehicle with specs, modification history, and media galleries that you control.",
+    gradient: "from-indigo-500/[0.15]"
   },
   {
-    icon: Share2,
+    emoji: "🔗",
     title: "One Shareable Link",
-    description: "Share your entire automotive collection with a single custom link that you can post on social media or forums.",
-    color: "from-blue-500 to-indigo-600"
+    description: "`carfolio.io/yourusername` - One simple link to share across Instagram, TikTok, forums, and with other enthusiasts.",
+    gradient: "from-rose-500/[0.15]"
   },
   {
-    icon: DollarSign,
+    emoji: "💰",
     title: "Monetize Your Knowledge",
-    description: "Add affiliate links to parts you've used and earn when others purchase through your recommendations.",
-    color: "from-emerald-500 to-green-600"
+    description: "Add affiliate links to parts you've used and earn commission when your followers purchase through your recommendations.",
+    gradient: "from-violet-500/[0.15]"
   },
   {
-    icon: ShieldCheck,
-    title: "Profile Verification",
-    description: "Get verified to build trust and credibility with your audience and potential collaborators.",
-    color: "from-primary-500 to-purple-600"
-  },
-  {
-    icon: Zap,
-    title: "Mobile-Optimized",
-    description: "Access your profile from any device with a responsive design that works perfectly on desktop and mobile.",
-    color: "from-amber-500 to-orange-600"
-  },
-  {
-    icon: Users,
-    title: "Community Features",
-    description: "Connect with like-minded enthusiasts, get feedback on your builds, and discover new inspiration.",
-    color: "from-sky-500 to-cyan-600"
+    emoji: "✅",
+    title: "Build Credibility",
+    description: "Verified profiles establish your expertise and build trust with your automotive community.",
+    gradient: "from-amber-500/[0.15]"
   }
 ];
 
 export default function Features() {
+  const fadeUpVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        delay: 0.2 + i * 0.1,
+        ease: [0.25, 0.4, 0.25, 1],
+      },
+    }),
+  };
+
   return (
-    <section id="features" className="py-24 px-4 relative overflow-hidden">
+    <section id="features" className="py-24 px-4 relative overflow-hidden bg-[#030303]">
       {/* Background elements */}
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:3rem_3rem] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/50 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.02] via-transparent to-rose-500/[0.02] blur-3xl" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          custom={0}
+          variants={fadeUpVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center px-4 py-1.5 mb-6 rounded-full bg-primary-500/10 border border-primary-500/20">
-            <span className="text-xs font-medium text-primary-500">Why Join Our Waitlist</span>
+          <div className="flex flex-col items-center relative">
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-24 opacity-30">
+              <svg 
+                width="120" 
+                height="120" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="white" 
+                strokeWidth="1" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                style={{ display: 'block' }}
+              >
+                <path d="M13 16a3 3 0 0 1 2.24 5" />
+                <path d="M18 12h.01" />
+                <path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3" />
+                <path d="M20 8.54V4a2 2 0 1 0-4 0v3" />
+                <path d="M7.612 12.524a3 3 0 1 0-1.6 4.3" />
+              </svg>
+            </div>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight z-10 mt-12">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300">Key</span> Features
+            </h2>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Features You'll <span className="text-primary-500">Love</span>
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base lg:text-lg">
-            CarFolio is designed by car enthusiasts for car enthusiasts, with powerful features to showcase your automotive passion.
-          </p>
+          <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-rose-500 mx-auto mb-8"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              custom={index + 1}
+              variants={fadeUpVariants}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ translateY: -5 }}
-              className="relative p-6 rounded-xl overflow-hidden group"
             >
-              {/* Gradient border effect */}
-              <div className="absolute inset-0 bg-dark-800 rounded-xl z-0" />
-              <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl z-0`} />
-              <div className="absolute inset-0 p-0.5">
-                <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-20 rounded-xl`} />
-                <div className="absolute inset-0.5 bg-dark-800 rounded-[10px]" />
-              </div>
-              
-              <div className="relative z-10 flex flex-col h-full">
-                <div className={`w-12 h-12 mb-4 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg`}>
-                  <feature.icon className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                <p className="text-gray-400 text-sm">{feature.description}</p>
-              </div>
+              <Card className="bg-black/20 backdrop-blur-sm border border-white/[0.08] h-full group hover:bg-white/[0.05] transition-colors duration-300 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r to-transparent opacity-0 group-hover:opacity-5 transition-opacity duration-500 ease-in-out" style={{ backgroundImage: `linear-gradient(to right, ${feature.gradient.replace('from-', '')}, transparent)` }} />
+                
+                <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                  <div className="text-4xl">
+                    {feature.emoji}
+                  </div>
+                  <CardTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">
+                    {feature.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-white/60 text-lg">{feature.description}</p>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-16 p-6 rounded-xl bg-dark-800/50 backdrop-blur border border-dark-700 max-w-3xl mx-auto text-center"
-        >
-          <h3 className="text-xl font-bold mb-3">Ready to Elevate Your Automotive Experience?</h3>
-          <p className="text-gray-400 mb-6">
-            Join our exclusive waitlist to be among the first to access CarFolio when we launch. 
-            Early signup gets you priority access and special perks!
-          </p>
-          <motion.a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 px-6 py-3 rounded-lg font-medium text-white transition-all duration-300"
-          >
-            Join the Waitlist
-          </motion.a>
-        </motion.div>
       </div>
     </section>
   );

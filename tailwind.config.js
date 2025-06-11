@@ -13,7 +13,15 @@ export default {
           800: '#2C2B3C', // Raisin black
           700: '#403F4C', // Onyx
           600: '#1B2432', // Gunmetal
-        }
+        },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        card: "hsl(var(--card))",
+        "card-foreground": "hsl(var(--card-foreground))",
+        "muted-foreground": "hsl(var(--muted-foreground))",
       },
       keyframes: {
         gradient: {

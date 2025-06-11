@@ -1,106 +1,157 @@
 import { motion } from 'framer-motion';
-import { Car, Mail, Instagram, Twitter, Github } from 'lucide-react';
+import { Mail, Instagram, Youtube } from 'lucide-react';
+import Logo from './ui/Logo';
 
 export default function Footer() {
+  const fadeUpVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        delay: 0.2 + i * 0.1,
+        ease: [0.25, 0.4, 0.25, 1],
+      },
+    }),
+  };
+
   return (
-    <footer className="bg-dark-900 pt-20 pb-10 relative overflow-hidden">
+    <footer className="bg-[#030303] pt-20 pb-10 relative overflow-hidden">
       {/* Top border gradient */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-500/50 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.02] via-transparent to-rose-500/[0.02] blur-3xl" />
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
           {/* Brand */}
-          <div>
-            <a href="#" className="flex items-center gap-2 mb-4">
-              <Car className="w-6 h-6 text-primary-500" />
-              <span className="text-xl font-bold">
-                <span className="text-primary-500">Car</span>
-                <span className="text-white">Folio</span>
-              </span>
-            </a>
-            <p className="text-gray-400 text-sm mb-4">
-              The ultimate platform for car enthusiasts to showcase their builds and monetize their passion.
+          <motion.div
+            custom={0}
+            variants={fadeUpVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <div className="mb-4">
+              <Logo linkTo="#" iconSize={5} textSize="md" className="mb-4" />
+            </div>
+            <p className="text-white/60 text-sm mb-6">
+              Showcase, Share & Monetize Your Car Builds. The ultimate platform for automotive enthusiasts.
             </p>
             <div className="flex space-x-3">
-              <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-dark-800 text-gray-400 hover:text-primary-500 hover:bg-dark-700 transition-colors">
+              <a href="#" className="w-9 h-9 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/[0.08] text-white/60 hover:text-indigo-300 hover:border-indigo-500/50 transition-all duration-300">
                 <Instagram size={16} />
               </a>
-              <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-dark-800 text-gray-400 hover:text-primary-500 hover:bg-dark-700 transition-colors">
-                <Twitter size={16} />
-              </a>
-              <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-dark-800 text-gray-400 hover:text-primary-500 hover:bg-dark-700 transition-colors">
-                <Github size={16} />
+              <a href="#" className="w-9 h-9 flex items-center justify-center rounded-full bg-white/[0.03] border border-white/[0.08] text-white/60 hover:text-rose-300 hover:border-rose-500/50 transition-all duration-300">
+                <Youtube size={16} />
               </a>
             </div>
-          </div>
+          </motion.div>
           
           {/* Links */}
-          <div>
-            <h3 className="text-white font-bold mb-4">Features</h3>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#features" className="text-gray-400 hover:text-primary-500 transition-colors">Digital Profiles</a></li>
-              <li><a href="#features" className="text-gray-400 hover:text-primary-500 transition-colors">Shareable Links</a></li>
-              <li><a href="#features" className="text-gray-400 hover:text-primary-500 transition-colors">Monetization</a></li>
-              <li><a href="#features" className="text-gray-400 hover:text-primary-500 transition-colors">Community</a></li>
+          <motion.div
+            custom={1}
+            variants={fadeUpVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <h3 className="text-white font-bold mb-5 relative inline-block">
+              Features
+              <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-indigo-500 to-rose-500"></div>
+            </h3>
+            <ul className="space-y-3 text-sm mt-6">
+              <li><a href="#features" className="text-white/60 hover:text-indigo-300 transition-colors duration-300">Digital Car Portfolios</a></li>
+              <li><a href="#features" className="text-white/60 hover:text-indigo-300 transition-colors duration-300">One Shareable Link</a></li>
+              <li><a href="#features" className="text-white/60 hover:text-indigo-300 transition-colors duration-300">Monetize Your Knowledge</a></li>
+              <li><a href="#features" className="text-white/60 hover:text-indigo-300 transition-colors duration-300">Build Credibility</a></li>
             </ul>
-          </div>
+          </motion.div>
           
-          <div>
-            <h3 className="text-white font-bold mb-4">About</h3>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-gray-400 hover:text-primary-500 transition-colors">Our Mission</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-primary-500 transition-colors">Team</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-primary-500 transition-colors">Careers</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-primary-500 transition-colors">Blog</a></li>
+          <motion.div
+            custom={2}
+            variants={fadeUpVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <h3 className="text-white font-bold mb-5 relative inline-block">
+              Resources
+              <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-indigo-500 to-rose-500"></div>
+            </h3>
+            <ul className="space-y-3 text-sm mt-6">
+              <li><a href="#" className="text-white/60 hover:text-indigo-300 transition-colors duration-300">Privacy Policy</a></li>
+              <li><a href="#" className="text-white/60 hover:text-indigo-300 transition-colors duration-300">Terms of Service</a></li>
+              <li><a href="#" className="text-white/60 hover:text-indigo-300 transition-colors duration-300">Contact Us</a></li>
+              <li><a href="#faq" className="text-white/60 hover:text-indigo-300 transition-colors duration-300">FAQ</a></li>
             </ul>
-          </div>
+          </motion.div>
           
           {/* Waitlist */}
-          <div>
-            <h3 className="text-white font-bold mb-4">Join Our Waitlist</h3>
-            <p className="text-gray-400 text-sm mb-4">
-              Sign up to be notified when we launch and get exclusive early access.
+          <motion.div
+            custom={3}
+            variants={fadeUpVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <h3 className="text-white font-bold mb-5 relative inline-block">
+              Join Our Waitlist
+              <div className="absolute -bottom-2 left-0 w-12 h-0.5 bg-gradient-to-r from-indigo-500 to-rose-500"></div>
+            </h3>
+            <p className="text-white/60 text-sm mb-6 mt-6">
+              No credit card required. We'll notify you when it's your turn to create your profile.
             </p>
             <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
               <div className="relative">
-                <Mail className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
-                <input
+                <Mail className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-300/70" />
+                <motion.input
+                  whileFocus={{ scale: 1.01 }}
+                  transition={{ duration: 0.2 }}
                   type="email"
                   placeholder="Your email address"
-                  className="w-full pl-10 pr-4 py-2 bg-dark-800 rounded-lg border border-dark-700 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 transition-colors text-sm placeholder:text-gray-500"
+                  className="w-full pl-10 pr-4 py-3 bg-white/[0.03] backdrop-blur-sm rounded-lg border border-white/[0.08] focus:border-indigo-500/50 focus:outline-none focus:ring-1 focus:ring-indigo-500/30 transition-all duration-300 text-white text-sm placeholder:text-white/40"
                 />
               </div>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ duration: 0.2 }}
                 type="submit"
-                className="w-full bg-primary-500 hover:bg-primary-600 text-white py-2 rounded-lg font-medium transition-colors text-sm"
+                className="w-full bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white py-3 rounded-lg font-medium transition-all duration-300 text-sm shadow-lg shadow-indigo-500/10"
               >
-                Subscribe
-              </button>
+                Join Waitlist
+              </motion.button>
             </form>
-          </div>
+          </motion.div>
         </div>
         
         {/* Bottom area */}
-        <div className="border-t border-dark-800 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} CarFolio. All rights reserved.
+        <div className="border-t border-white/[0.05] pt-6 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-white/40 text-sm mb-4 md:mb-0">
+            &copy; 2025 CarFolio. All rights reserved.
           </p>
           <div className="flex space-x-6 text-sm">
-            <a href="#" className="text-gray-400 hover:text-primary-500 transition-colors">Privacy Policy</a>
-            <a href="#" className="text-gray-400 hover:text-primary-500 transition-colors">Terms of Service</a>
+            <a href="#" className="text-white/50 hover:text-indigo-300 transition-colors duration-300">Instagram</a>
+            <a href="#" className="text-white/50 hover:text-rose-300 transition-colors duration-300">YouTube</a>
           </div>
         </div>
         
         {/* Waitlist badge */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          custom={4}
+          variants={fadeUpVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          className="mt-10 max-w-md mx-auto bg-dark-800/50 backdrop-blur-sm border border-dark-700 rounded-lg p-4 text-center"
+          className="mt-10 max-w-md mx-auto bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] rounded-lg p-4 text-center relative overflow-hidden group"
         >
-          <span className="text-gray-400 text-sm">
-            🚀 <span className="text-primary-500 font-medium">Coming Soon:</span> Currently in private beta, launching publicly in 2025.
-          </span>
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/[0.05] to-rose-500/[0.05] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl z-0" />
+          <div className="relative z-10">
+            <span className="text-white/70 text-sm">
+              🚀 <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-rose-300 font-medium">Coming Soon:</span> Currently in private beta, launching publicly in 2025.
+            </span>
+          </div>
         </motion.div>
       </div>
     </footer>

@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { Id } from '../../convex/_generated/dataModel';
-import { ArrowLeft, Loader2, RefreshCw, Search, Trash2 } from 'lucide-react';
+import { ArrowLeft, Loader2, RefreshCw, Search, Trash2, Database } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import GoogleSheetsSetup from '../components/GoogleSheetsSetup';
 
 // Define interface for waitlist entries
 interface WaitlistEntry {
@@ -59,6 +60,8 @@ const Admin = () => {
     }
   };
   
+  const [activeTab, setActiveTab] = useState<'waitlist' | 'sheets'>('waitlist');
+
   return (
     <div className="min-h-screen bg-dark-900 text-gray-100 p-6">
       <div className="max-w-6xl mx-auto">
@@ -70,6 +73,31 @@ const Admin = () => {
           <h1 className="text-2xl font-bold">Waitlist Admin</h1>
         </div>
         
+        {/* Tab navigation */}
+        <div className="flex mb-6 border-b border-gray-800">
+          <button
+            className={`py-2 px-4 font-medium ${activeTab === 'waitlist' ? 'text-white border-b-2 border-indigo-500' : 'text-gray-400 hover:text-white'}`}
+            onClick={() => setActiveTab('waitlist')}
+          >
+            <div className="flex items-center">
+              <Database className="w-4 h-4 mr-2" />
+              Waitlist Management
+            </div>
+          </button>
+          <button
+            className={`py-2 px-4 font-medium ${activeTab === 'sheets' ? 'text-white border-b-2 border-indigo-500' : 'text-gray-400 hover:text-white'}`}
+            onClick={() => setActiveTab('sheets')}
+          >
+            <div className="flex items-center">
+              <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.5,2h-15C3.12,2,2,3.12,2,4.5v15C2,20.88,3.12,22,4.5,22h15c1.38,0,2.5-1.12,2.5-2.5v-15C22,3.12,20.88,2,19.5,2z M12,18.5l-7.5-7.5l1.41-1.41L12,15.67l6.09-6.08L19.5,11L12,18.5z" />
+              </svg>
+              Google Sheets Integration
+            </div>
+          </button>
+        </div>
+        
+        {activeTab === 'waitlist' ? (
         <div className="bg-dark-800 rounded-lg p-6 mb-8">
           <div className="flex justify-between items-center mb-6">
             <div className="flex items-center space-x-4">
@@ -158,6 +186,9 @@ const Admin = () => {
             </div>
           )}
         </div>
+        ) : (
+          <GoogleSheetsSetup />
+        )}
       </div>
     </div>
   );

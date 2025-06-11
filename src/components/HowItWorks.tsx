@@ -4,79 +4,93 @@ import { Car, Link2, Star, Upload } from 'lucide-react';
 const steps = [
   {
     icon: Car,
-    title: "Create Your Car Profile",
-    description: "Add your vehicle details including year, make, model, horsepower, and a list of modifications.",
-    color: "from-primary-500 to-pink-600"
+    title: "Create Your Vehicle Profiles",
+    description: "Add unlimited vehicles with detailed specs, modifications list, and build history.",
+    gradient: "from-indigo-500/[0.15]"
   },
   {
     icon: Upload,
-    title: "Upload Your Best Photos",
-    description: "Showcase your ride with up to 10 high-quality photos or videos that highlight your build.",
-    color: "from-blue-500 to-primary-500"
+    title: "Upload Your Best Media",
+    description: "Showcase your rides with high-quality photos and videos that highlight your builds.",
+    gradient: "from-rose-500/[0.15]"
   },
   {
     icon: Link2,
-    title: "Share Your Profile",
-    description: "Get a personalized URL to share your car portfolio on social media, forums, and with other enthusiasts.",
-    color: "from-purple-500 to-blue-500"
+    title: "Share With One Link",
+    description: "Get a personalized URL to share everywhere - social media, forums, car meets, and more.",
+    gradient: "from-violet-500/[0.15]"
   },
   {
     icon: Star,
-    title: "Monetize Your Passion",
-    description: "Add affiliate links to the parts and products you use, earning commission when others buy through your profile.",
-    color: "from-green-500 to-blue-500"
+    title: "Earn From Your Passion",
+    description: "Connect affiliate programs to the parts you recommend and start earning.",
+    gradient: "from-amber-500/[0.15]"
   },
 ];
 
 // Explicitly mark this as a React component for TypeScript
 const HowItWorks: React.FC = () => {
+  const fadeUpVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        delay: 0.2 + i * 0.1,
+        ease: [0.25, 0.4, 0.25, 1],
+      },
+    }),
+  };
+
   return (
-    <section id="how-it-works" className="py-24 px-4 relative overflow-hidden">
+    <section id="how-it-works" className="py-24 px-4 relative overflow-hidden bg-[#030303]">
       {/* Background elements */}
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:3rem_3rem] pointer-events-none" />
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-1/3 h-1/2 bg-gradient-to-l from-primary-500/20 to-transparent blur-3xl rounded-full opacity-50" />
-      <div className="absolute bottom-0 left-1/4 w-1/4 h-1/3 bg-gradient-to-t from-blue-500/20 to-transparent blur-3xl rounded-full opacity-30" />
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.02] via-transparent to-rose-500/[0.02] blur-3xl" />
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-1/3 h-1/2 bg-gradient-to-l from-indigo-500/10 to-transparent blur-3xl rounded-full opacity-30" />
+      <div className="absolute bottom-0 left-1/4 w-1/4 h-1/3 bg-gradient-to-t from-rose-500/10 to-transparent blur-3xl rounded-full opacity-20" />
       
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          custom={0}
+          variants={fadeUpVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
           className="text-center mb-16 md:mb-24"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            How <span className="text-primary-500">CarFolio</span> Works
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+            How <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300">CarFolio</span> Works
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Join the community of auto enthusiasts and showcase your builds
-          </p>
+          <div className="h-1 w-20 bg-gradient-to-r from-indigo-500 to-rose-500 mx-auto mb-8"></div>
         </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
           {steps.map((step, index) => (
             <motion.div
               key={step.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              custom={index + 1}
+              variants={fadeUpVariants}
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="bg-dark-800/70 backdrop-blur-sm border border-dark-700 rounded-xl p-6 relative"
+              className="bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] rounded-xl p-6 relative group overflow-hidden"
             >
-              <div className={`absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-r ${step.color} flex items-center justify-center shadow-lg`}>
-                <step.icon className="w-6 h-6 text-white" />
+              <div className="absolute inset-0 bg-gradient-to-r to-transparent opacity-0 group-hover:opacity-5 transition-opacity duration-500 ease-in-out" style={{ backgroundImage: `linear-gradient(to right, ${step.gradient.replace('from-', '')}, transparent)` }} />
+              
+              <div className="flex items-center gap-4 mb-4">
+                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-white font-bold text-xl">
+                  {index + 1}
+                </div>
+                <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/80">{step.title}</h3>
               </div>
               
-              <div className="mt-6 text-center">
-                <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-                <p className="text-gray-400">{step.description}</p>
+              <div className="pl-14">
+                <p className="text-white/60">{step.description}</p>
               </div>
               
-              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2">
-                {index < steps.length - 1 && (
-                  <div className="w-6 h-6 rounded-full border-2 border-dark-700 flex items-center justify-center bg-dark-800">
-                    <span className="text-xs font-bold">{index + 1}</span>
-                  </div>
-                )}
+              <div className="absolute -top-6 right-6 w-12 h-12 rounded-full bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] flex items-center justify-center shadow-lg">
+                <step.icon className="w-6 h-6 text-white/80" />
               </div>
             </motion.div>
           ))}
