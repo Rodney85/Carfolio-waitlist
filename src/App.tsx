@@ -2,12 +2,8 @@ import React from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Problem from './components/Problem';
-import Features from './components/Features';
-import HowItWorks from './components/HowItWorks';
-import Pricing from './components/Pricing';
-import WaitlistAdvantage from './components/WaitlistAdvantage';
-import WaitlistProcess from './components/WaitlistProcess';
+import BeforeAfter from './components/Problem';
+import TheOffer from './components/TheOffer';
 import FAQ from './components/FAQ';
 import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
@@ -22,12 +18,8 @@ const Home: React.FC = () => {
     <>
       <Navbar />
       <Hero />
-      <Problem />
-      <Features />
-      <HowItWorks />
-      <Pricing />
-      <WaitlistAdvantage />
-      <WaitlistProcess />
+      <BeforeAfter />
+      <TheOffer />
       <FAQ />
       <FinalCTA />
       <Footer />

@@ -80,49 +80,49 @@ function ElegantShape({
 const CustomHeroWithWaitlistForm = () => {
   // Reuse the HeroGeometric styling but replace the form
   return (
-    <div className="relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden bg-[#030303]">
+    <div id="hero" className="relative min-h-[100svh] w-full flex items-center justify-center overflow-hidden bg-[#030303]">
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl" />
 
       {/* Shape elements from HeroGeometric */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <ElegantShape
           delay={0.3}
-          width={400}
-          height={100}
+          width={300}
+          height={80}
           rotate={12}
           gradient="from-indigo-500/[0.15]"
-          className="left-[-15%] sm:left-[-10%] md:left-[-5%] top-[15%] md:top-[20%]"
+          className="left-[-20%] sm:left-[-15%] md:left-[-10%] lg:left-[-5%] top-[10%] sm:top-[15%] md:top-[20%]"
         />
 
         <ElegantShape
           delay={0.5}
-          width={350}
-          height={90}
+          width={280}
+          height={70}
           rotate={-15}
           gradient="from-rose-500/[0.15]"
-          className="right-[-10%] sm:right-[-5%] md:right-[0%] top-[65%] md:top-[75%]"
+          className="right-[-15%] sm:right-[-10%] md:right-[-5%] lg:right-[0%] top-[70%] md:top-[75%]"
         />
 
         <ElegantShape
           delay={0.4}
-          width={250}
-          height={70}
+          width={200}
+          height={60}
           rotate={-8}
           gradient="from-violet-500/[0.15]"
-          className="left-[0%] sm:left-[5%] md:left-[10%] bottom-[3%] md:bottom-[10%]"
+          className="left-[-5%] sm:left-[0%] md:left-[5%] lg:left-[10%] bottom-[5%] md:bottom-[10%]"
         />
 
         <ElegantShape
           delay={0.6}
-          width={180}
-          height={50}
+          width={150}
+          height={40}
           rotate={20}
           gradient="from-amber-500/[0.15]"
-          className="right-[8%] sm:right-[15%] md:right-[20%] top-[25%] md:top-[30%]"
+          className="right-[5%] sm:right-[8%] md:right-[15%] lg:right-[20%] top-[20%] sm:top-[25%] md:top-[30%]"
         />
       </div>
 
-      <div className="relative z-10 py-24 flex flex-col items-center text-center">
+      <div className="relative z-10 py-16 sm:py-20 md:py-24 flex flex-col items-center text-center min-h-[100svh] justify-center">
         <div className="container max-w-5xl mx-auto px-4 sm:px-6">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-white/[0.05] backdrop-blur-lg border border-white/10 py-2 px-4 rounded-full mb-6">
@@ -133,29 +133,29 @@ const CustomHeroWithWaitlistForm = () => {
           </div>
 
           {/* Title */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 md:mb-6 tracking-tight leading-[1.1] px-4 sm:px-0">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4 md:mb-6 tracking-tight leading-[1.1] px-2 sm:px-4 lg:px-0">
             <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">
-              Get Early Access
+              Your Car's Story Deserves
             </span>
             <br className="hidden sm:block" />
             <span className="sm:mt-2 inline-block bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300">
-              to Your Car's Digital Home
+              More Than a Caption.
             </span>
           </h1>
 
           {/* Description */}
-          <p className="text-base sm:text-lg md:text-xl text-white/60 mb-6 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-4 sm:px-6">
-            CarFolio helps automotive enthusiasts create stunning digital showcases for their vehicles, share them with a single link, and even earn money from their passion.
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/60 mb-6 md:mb-8 leading-relaxed font-light tracking-wide max-w-2xl mx-auto px-2 sm:px-4 md:px-6">
+            CarFolio is the first all-in-one platform for automotive enthusiasts to showcase their builds, share their story, and monetize their passion. Stop typing out your mod list. Start building your legacy.
           </p>
           
           {/* Waitlist Form - Using the proper connected component */}
-          <div className="max-w-md mx-auto px-4 sm:px-0 mb-4">
+          <div className="max-w-md mx-auto px-2 sm:px-4 lg:px-0 mb-4">
             <WaitlistForm />
           </div>
           
           {/* Footer message */}
           <div className="text-sm text-white/40 max-w-md mx-auto px-4 sm:px-0">
-            <p>No credit card required. Lock in founder pricing for life.</p>
+            <p>Join now to lock in lifetime founder pricing.</p>
           </div>
         </div>
       </div>

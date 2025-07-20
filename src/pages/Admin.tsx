@@ -63,20 +63,20 @@ const Admin = () => {
   const [activeTab, setActiveTab] = useState<'waitlist' | 'sheets'>('waitlist');
 
   return (
-    <div className="min-h-screen bg-dark-900 text-gray-100 p-6">
+    <div className="min-h-screen bg-dark-900 text-gray-100 p-4 sm:p-6">
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center mb-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6 sm:mb-8 gap-4 sm:gap-0">
           <Link to="/" className="inline-flex items-center mr-4 text-gray-400 hover:text-white transition">
             <ArrowLeft className="w-5 h-5 mr-1" />
             Back to Home
           </Link>
-          <h1 className="text-2xl font-bold">Waitlist Admin</h1>
+          <h1 className="text-xl sm:text-2xl font-bold">Waitlist Admin</h1>
         </div>
         
         {/* Tab navigation */}
-        <div className="flex mb-6 border-b border-gray-800">
+        <div className="flex flex-col sm:flex-row mb-6 border-b border-gray-800 overflow-x-auto">
           <button
-            className={`py-2 px-4 font-medium ${activeTab === 'waitlist' ? 'text-white border-b-2 border-indigo-500' : 'text-gray-400 hover:text-white'}`}
+            className={`py-2 px-3 sm:px-4 font-medium whitespace-nowrap ${activeTab === 'waitlist' ? 'text-white border-b-2 border-indigo-500' : 'text-gray-400 hover:text-white'}`}
             onClick={() => setActiveTab('waitlist')}
           >
             <div className="flex items-center">
@@ -85,7 +85,7 @@ const Admin = () => {
             </div>
           </button>
           <button
-            className={`py-2 px-4 font-medium ${activeTab === 'sheets' ? 'text-white border-b-2 border-indigo-500' : 'text-gray-400 hover:text-white'}`}
+            className={`py-2 px-3 sm:px-4 font-medium whitespace-nowrap ${activeTab === 'sheets' ? 'text-white border-b-2 border-indigo-500' : 'text-gray-400 hover:text-white'}`}
             onClick={() => setActiveTab('sheets')}
           >
             <div className="flex items-center">
@@ -98,9 +98,9 @@ const Admin = () => {
         </div>
         
         {activeTab === 'waitlist' ? (
-        <div className="bg-dark-800 rounded-lg p-6 mb-8">
-          <div className="flex justify-between items-center mb-6">
-            <div className="flex items-center space-x-4">
+        <div className="bg-dark-800 rounded-lg p-4 sm:p-6 mb-6 sm:mb-8">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
               <div className="bg-dark-700 px-3 py-1 rounded-md text-sm">
                 Total Entries: <span className="font-bold">{waitlistCount}</span>
               </div>
@@ -116,14 +116,14 @@ const Admin = () => {
               )}
             </div>
             
-            <div className="relative">
+            <div className="relative w-full sm:w-auto">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Search className="h-4 w-4 text-gray-500" />
               </div>
               <input
                 type="text"
                 placeholder="Search emails..."
-                className="pl-10 pr-4 py-2 bg-dark-700 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 w-64"
+                className="pl-10 pr-4 py-2 bg-dark-700 rounded-md focus:outline-none focus:ring-1 focus:ring-primary-500 w-full sm:w-64"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -153,19 +153,26 @@ const Admin = () => {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-dark-700">
-                    <th className="text-left py-3 px-4 text-gray-400 font-medium">Email</th>
-                    <th className="text-left py-3 px-4 text-gray-400 font-medium">Date Added</th>
-                    <th className="text-right py-3 px-4 text-gray-400 font-medium">Actions</th>
+                    <th className="text-left py-3 px-2 sm:px-4 text-gray-400 font-medium text-sm sm:text-base">Email</th>
+                    <th className="text-left py-3 px-2 sm:px-4 text-gray-400 font-medium text-sm sm:text-base hidden md:table-cell">Date Added</th>
+                    <th className="text-right py-3 px-2 sm:px-4 text-gray-400 font-medium text-sm sm:text-base">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredEntries.map((entry: WaitlistEntry) => (
                     <tr key={entry._id} className="border-b border-dark-700 hover:bg-dark-700/50 transition">
-                      <td className="py-3 px-4">{entry.email}</td>
-                      <td className="py-3 px-4 text-gray-400">
+                      <td className="py-3 px-2 sm:px-4 text-sm sm:text-base">
+                        <div className="flex flex-col">
+                          <span>{entry.email}</span>
+                          <span className="text-xs text-gray-500 md:hidden">
+                            {new Date(entry.createdAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </td>
+                      <td className="py-3 px-2 sm:px-4 text-gray-400 text-sm hidden md:table-cell">
                         {new Date(entry.createdAt).toLocaleDateString()} {new Date(entry.createdAt).toLocaleTimeString()}
                       </td>
-                      <td className="py-3 px-4 text-right">
+                      <td className="py-3 px-2 sm:px-4 text-right">
                         <button 
                           onClick={() => handleDeleteEntry(entry._id)}
                           disabled={deleteStatus.loading && deleteStatus.id === entry._id}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Logo from './ui/Logo';
 
@@ -21,7 +20,7 @@ const Navbar: React.FC = () => {
       setIsScrolled(window.scrollY > 10);
       
       // Update active section based on scroll position
-      const sections = ['features', 'how-it-works', 'pricing', 'faq'];
+      const sections = ['before-after', 'the-offer', 'faq'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -62,9 +61,8 @@ const Navbar: React.FC = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {[
-              { name: 'Features', href: '#features' },
-              { name: 'How It Works', href: '#how-it-works' },
-              { name: 'Pricing', href: '#pricing' },
+              { name: 'Why CarFolio', href: '#before-after' },
+              { name: 'Pricing', href: '#the-offer' },
               { name: 'FAQ', href: '#faq' },
             ].map((item) => (
               <a 
@@ -87,7 +85,7 @@ const Navbar: React.FC = () => {
             <motion.a 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="#final-cta" 
+              href="#hero" 
               className="px-5 py-2 bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white font-medium rounded-full transition-all duration-300 shadow-lg shadow-indigo-500/20"
             >
               Join Waitlist
@@ -129,9 +127,8 @@ const Navbar: React.FC = () => {
         >
           <div className="container mx-auto px-4 py-6 flex flex-col space-y-5">
             {[
-              { name: 'Features', href: '#features' },
-              { name: 'How It Works', href: '#how-it-works' },
-              { name: 'Pricing', href: '#pricing' },
+              { name: 'Why CarFolio', href: '#before-after' },
+              { name: 'Pricing', href: '#the-offer' },
               { name: 'FAQ', href: '#faq' },
             ].map((item) => (
               <a 
@@ -146,7 +143,7 @@ const Navbar: React.FC = () => {
             <motion.a 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              href="#final-cta" 
+              href="#hero" 
               onClick={closeMenu}
               className="px-5 py-3 bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white font-medium rounded-full transition-all duration-300 text-center shadow-lg shadow-indigo-500/20 mt-2"
             >

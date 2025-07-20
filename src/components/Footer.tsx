@@ -17,13 +17,13 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#030303] pt-20 pb-10 relative overflow-hidden">
+    <footer className="bg-[#030303] pt-12 sm:pt-16 md:pt-20 pb-8 sm:pb-10 relative overflow-hidden">
       {/* Top border gradient */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.02] via-transparent to-rose-500/[0.02] blur-3xl" />
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-12 sm:mb-16">
           {/* Brand */}
           <motion.div
             custom={0}
@@ -35,7 +35,7 @@ export default function Footer() {
             <div className="mb-4">
               <Logo linkTo="#" iconSize={5} textSize="md" className="mb-4" />
             </div>
-            <p className="text-white/60 text-sm mb-6">
+            <p className="text-white/60 text-sm mb-4 sm:mb-6">
               Showcase, Share & Monetize Your Car Builds. The ultimate platform for automotive enthusiasts.
             </p>
             <div className="flex space-x-3">
@@ -102,7 +102,7 @@ export default function Footer() {
             <p className="text-white/60 text-sm mb-6 mt-6">
               No credit card required. We'll notify you when it's your turn to create your profile.
             </p>
-            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-2 sm:space-y-3" onSubmit={(e) => e.preventDefault()}>
               <div className="relative">
                 <Mail className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-indigo-300/70" />
                 <motion.input
@@ -110,7 +110,7 @@ export default function Footer() {
                   transition={{ duration: 0.2 }}
                   type="email"
                   placeholder="Your email address"
-                  className="w-full pl-10 pr-4 py-3 bg-white/[0.03] backdrop-blur-sm rounded-lg border border-white/[0.08] focus:border-indigo-500/50 focus:outline-none focus:ring-1 focus:ring-indigo-500/30 transition-all duration-300 text-white text-sm placeholder:text-white/40"
+                  className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-white/[0.03] backdrop-blur-sm rounded-lg border border-white/[0.08] focus:border-indigo-500/50 focus:outline-none focus:ring-1 focus:ring-indigo-500/30 transition-all duration-300 text-white text-sm placeholder:text-white/40"
                 />
               </div>
               <motion.button
@@ -118,7 +118,7 @@ export default function Footer() {
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2 }}
                 type="submit"
-                className="w-full bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white py-3 rounded-lg font-medium transition-all duration-300 text-sm shadow-lg shadow-indigo-500/10"
+                className="w-full bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white py-2.5 sm:py-3 rounded-lg font-medium transition-all duration-300 text-sm shadow-lg shadow-indigo-500/10"
               >
                 Join Waitlist
               </motion.button>
@@ -127,11 +127,11 @@ export default function Footer() {
         </div>
         
         {/* Bottom area */}
-        <div className="border-t border-white/[0.05] pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-white/40 text-sm mb-4 md:mb-0">
+        <div className="border-t border-white/[0.05] pt-4 sm:pt-6 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
+          <p className="text-white/40 text-sm mb-0">
             &copy; 2025 CarFolio. All rights reserved.
           </p>
-          <div className="flex space-x-6 text-sm">
+          <div className="flex space-x-4 sm:space-x-6 text-sm">
             <a href="#" className="text-white/50 hover:text-indigo-300 transition-colors duration-300">Instagram</a>
             <a href="#" className="text-white/50 hover:text-rose-300 transition-colors duration-300">YouTube</a>
           </div>
@@ -144,7 +144,7 @@ export default function Footer() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-10 max-w-md mx-auto bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] rounded-lg p-4 text-center relative overflow-hidden group"
+          className="mt-6 sm:mt-8 md:mt-10 max-w-md mx-auto bg-white/[0.03] backdrop-blur-sm border border-white/[0.08] rounded-lg p-3 sm:p-4 text-center relative overflow-hidden group"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/[0.05] to-rose-500/[0.05] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl z-0" />
           <div className="relative z-10">
